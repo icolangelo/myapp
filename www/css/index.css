@@ -24,7 +24,6 @@ body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#E4E4E4;
     background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
     background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
     background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
@@ -112,4 +111,41 @@ h1 {
 .blink {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
+}
+
+#linksList a {
+  text-decoration: none;
+}
+
+#linksList li{
+    padding: 2px;
+}
+
+#linksList .contentData{
+  position: relative;
+   border-radius: 0px;
+   height: 150px;
+   background-size: cover;
+   background-position:center top;
+   background-repeat: no-repeat;
+}
+
+#linksList .contentData span{ 
+  position: relative;
+  top: 100px;
+  background-color: rgba(78,16,22,0.80);
+  padding: 3px;
+  color: #FFF;
+   font-weight: bold;
+   font-family: Helvetica, Arial;   
+   padding-left: 1em;
+   border-bottom-right-radius: 5px;
+   border-top-right-radius: 5px;
+   display:block;
+   width: 80%;
+   font-size: 1em;
+}
+
+.ui-content{
+      background-color:#F3EFE0 !important;
 }

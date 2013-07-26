@@ -1,7 +1,5 @@
-var deviceInfo = function(){
-	console.log('abc');
+var deviceInfo = function(){	
 	//navigator.notification.alert("name");
-	$('.app').html('xxx.');
 };
 
 function init(){
@@ -13,7 +11,7 @@ function init(){
 
 //EDIT THESE LINES
 //Title of the blog
-var TITLE = "Ivan's Blog";
+var TITLE = "Casar VIP";
 //RSS url
 var RSS = "http://casarvip.com.br/rss";
 //Stores entries
@@ -26,10 +24,16 @@ var selectedEntry = "";
 function renderEntries(entries) {
     var s = '';
     $.each(entries, function(i, v) {
-        s += '<li><a href="#contentPage" class="contentLink" data-entryid="'+i+'">' + v.title + '</a></li>';
+        var regex = /<img.*?src="(.*?)"/;        
+        var matchs = regex.exec(v.content);
+        var src = "";
+        if( matchs!=null ) src = matchs[1];
+        s += '<li><a href="#contentPage" class="contentLink" data-entryid="'+i+'">';
+        s += '<div class="contentData" style="background-image: url(' + "'" + src + "'" + ');"> <span>' +  v.title  + '</span></div>';
+        s += '</a></li>';
     });
     $("#linksList").html(s);
-    $("#linksList").listview("refresh");
+    //$("#linksList").listview("refresh");
 
 	//listen for detail links
 	$(".contentLink").on("click", function() {
@@ -38,8 +42,7 @@ function renderEntries(entries) {
 }
 
 //Listen for Google's library to load
-function initialize() {
-	console.log('ready to use google');
+function initialize() {	
 	var feed = new google.feeds.Feed(RSS);
 	feed.setResultFormat(google.feeds.Feed.JSON_FORMAT);
 	feed.setNumEntries(10);
@@ -65,8 +68,7 @@ function initialize() {
 
 //Listen for main page
 $("#mainPage").on("pageinit", function() {
-	//Set the title
-	console.log('ivan');
+	//Set the title	
 	$("h1", this).text(TITLE);
 	
 	google.load("feeds", "1",{callback:initialize});
@@ -81,15 +83,19 @@ $("#mainPage").on("pagebeforeshow", function(event,data) {
 
 //Listen for the content page to load
 $("#contentPage").on("pageshow", function(prepage) {
-	//Set the title
-	console.log('SELECTEDENTRY: ' + selectedEntry);
+	//Set the title	
 	$("h1", this).text(entries[selectedEntry].title);
 	var contentHTML = "";
 	contentHTML += entries[selectedEntry].content;
-	contentHTML += '<p/><a href="'+entries[selectedEntry].link + '" class="fullLink" data-role="button">Read Entry on Site</a>';
+	contentHTML += '<p/><a href="'+entries[selectedEntry].link + '" class="fullLink" data-role="button">Ler no Site</a>';
 	$("#entryText",this).html(contentHTML);
 	$("#entryText .fullLink",this).button();
 
+});
+
+$("#sitePage").on("pageshow", function(prepage) {
+  
+  window.plugins.childBrowser.showWebPage('www.casarvip.com.br');
 });
 	
 $(window).on("touchstart", ".fullLink", function(e) {
